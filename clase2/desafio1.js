@@ -41,7 +41,7 @@ class ProductManager {
   }
 }
 const product = new ProductManager();
-
+console.log(product.getProducts());
 product.addProduct(
   "title0",
   "description0",
@@ -50,6 +50,7 @@ product.addProduct(
   "code0",
   "stock0"
 );
+console.log(product.getProducts()); 
 product.addProduct(
   "title1",
   "description1",
