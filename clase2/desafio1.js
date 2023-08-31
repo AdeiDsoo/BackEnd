@@ -1,32 +1,19 @@
-//HANS ON LAB
 class ProductManager {
   constructor() {
     this.products = [];
   }
 
   addProduct(title, description, price, thumbnail, code, stock) {
-    // let codeExist;
 
     if (!title || !description || !price || !thumbnail || !code || !stock) {
       return "Datos incompleto, ingresa todo los campos requeridos";
     }
-    const productCode = this.products.find((e) => e.code === code);
+    const productCode = this.products.find((e) => e.code === codge);
     if (productCode) {
       return "ya existe este codigo";
     }
     
-    // this.products.forEach((element) => {
-    //   const allCodes = element.code;
-    //   if (code === allCodes) {
-    //     codeExist = true;
-    //   }
-    //   codeExist = false;
-    // });
-    // console.log(codeExist)
-    // if (codeExist === true) {
-   
-    //   return "este codigo ya existe";
-    // }
+
     const product = {
       id: this.products.length
         ? this.products[this.products.length - 1].id + 1
