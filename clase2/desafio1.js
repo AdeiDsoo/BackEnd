@@ -4,15 +4,13 @@ class ProductManager {
   }
 
   addProduct(title, description, price, thumbnail, code, stock) {
-
     if (!title || !description || !price || !thumbnail || !code || !stock) {
       return "Datos incompleto, ingresa todo los campos requeridos";
     }
-    const productCode = this.products.find((e) => e.code === codge);
+    const productCode = this.products.find((e) => e.code === code);
     if (productCode) {
       return "ya existe este codigo";
     }
-    
 
     const product = {
       id: this.products.length
@@ -29,19 +27,20 @@ class ProductManager {
   }
 
   getProducts() {
-    return [...this.products]
+    return [...this.products];
   }
   getProductsById(idProduct) {
     const product = this.products.find((e) => e.id === idProduct);
     if (!product) {
       return "Not Found";
     }
-    console.log('si hay concidencia')
-    return product
+    console.log("si hay concidencia");
+    return product;
   }
 }
-const product = new ProductManager();
 
+const product = new ProductManager();
+console.log(product.getProducts());
 product.addProduct(
   "title0",
   "description0",
@@ -50,6 +49,7 @@ product.addProduct(
   "code0",
   "stock0"
 );
+console.log(product.getProducts());
 product.addProduct(
   "title1",
   "description1",
