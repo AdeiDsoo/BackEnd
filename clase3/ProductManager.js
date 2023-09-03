@@ -1,7 +1,3 @@
-//geProductsById- recibe un id y traer la informacion del producto con el id correspondenidnte-devuelve un objeto
-//updateProduct - recobe el id y actualizar alguno de los campos o todo el objeto .- del articulo con ese id
-//deleteProduct - recibe un id y elimina el producto con dicho id
-
 const fs = require("fs");
 
 class ProductManager {
@@ -69,7 +65,7 @@ class ProductManager {
             return error;
         }
     }
- 
+
     async deleteProducts(idProduct) {
         try {
             const products = await this.getProducts();
@@ -82,7 +78,7 @@ class ProductManager {
                     this.path,
                     JSON.stringify(productsWithoutProduct)
                 );
-                return "procuto eliminado";
+                return "producto eliminado";
             }
             return "no existe el producto que desea eliminar";
         } catch (error) {
@@ -90,13 +86,28 @@ class ProductManager {
         }
     }
 
-    async updateProduct() {
+    async updateProduct(idProduct, obj) {
+        //actualiza alguno de los campos o todo el objeto
         try {
+            const products = await this.getProducts();
+            const newArrayProducts = products.filter(
+                (product) => product.id !== idProduct
+            );
+            const product = products.find((e) => e.id === idProduct);
+            if (product) {
+                newArrayProducts.push({ ...product, ...obj });
+                await fs.promises.writeFile(
+                    this.path,
+                    JSON.stringify(newArrayProducts)
+                );
+
+                return `Producto con el id ${idProduct}, ha sido actualizado`;
+            }
+            return "no existe el producto que desea actualizar, introduce un id valido";
         } catch (error) {
             return error;
         }
     }
-    
 }
 
 const productExample = {
@@ -107,17 +118,31 @@ const productExample = {
     code: 563,
     stock: 3,
 };
+const productExample2 = {
+    title: "title2",
+    description: "description2",
+    price: 10,
+    thumbnail: "url2",
+    code: 123,
+    stock: 22,
+};
+const objPrueba = {
+    price: 5,
+    stock: 100,
+};
 
 async function testing() {
     const products = new ProductManager("clase3/products.json");
-    const addProducts = await products.addProduct(productExample);
-    const searchId = await products.getProductsById(7);
-    const deleteProduct = await products.deleteProducts(5);
-    const result = await products.getProducts();
-    console.log(result);
-    console.log(addProducts);
-    console.log(searchId);
-    console.log(deleteProduct);
+    // const result = await products.getProducts();
+    // const addProducts = await products.addProduct(productExample2);
+    // const searchId = await products.getProductsById(1);
+    // const deleteProduct = await products.deleteProducts(5);
+    const updateProduct = await products.updateProduct(2, objPrueba);
+    // console.log(result);
+    // console.log(addProducts);
+    // console.log(searchId);
+    // console.log(deleteProduct);
+    console.log(updateProduct);
 }
 
 testing();
