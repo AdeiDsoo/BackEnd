@@ -132,17 +132,17 @@ const objPrueba = {
 };
 
 async function testing() {
-    const products = new ProductManager("clase3/products.json");
+    const products = new ProductManager("products.json");
     // const result = await products.getProducts();
-    // const addProducts = await products.addProduct(productExample2);
+    const addProducts = await products.addProduct(productExample2);
     // const searchId = await products.getProductsById(1);
     // const deleteProduct = await products.deleteProducts(5);
-    const updateProduct = await products.updateProduct(2, objPrueba);
+    // const updateProduct = await products.updateProduct(2, objPrueba);
     // console.log(result);
-    // console.log(addProducts);
+    console.log(addProducts);
     // console.log(searchId);
     // console.log(deleteProduct);
-    console.log(updateProduct);
+    // console.log(updateProduct);
 }
 
 testing();
