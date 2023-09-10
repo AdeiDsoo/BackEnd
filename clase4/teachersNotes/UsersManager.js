@@ -8,7 +8,6 @@ class UsersManager {
     const { order } = queryObj
     try {
         if (fs.existsSync(this.path)) {
-          console.log('order',order);
         const info = await fs.promises.readFile(this.path, 'utf-8')
         const infoParsed = JSON.parse(info)
         return order === 'ASC'
@@ -44,8 +43,9 @@ class UsersManager {
 
   async getUserById(idUser) {
     try {
-      const users = await this.getUsers()
+      const users = await this.getUsers('')
       const user = users.find((u) => u.id === idUser)
+      console.log(user, 'user')
       return user
     } catch (error) {
       return error
@@ -85,3 +85,7 @@ class UsersManager {
 }
 
 export const usersManager = new UsersManager('UsersAPI.json')
+// const user =await usersManager.getUserById(3)
+//     const allUsers = [...users].slice(0, +"1");
+// console.log(user);
+//     console.log(allUs
