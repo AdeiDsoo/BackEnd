@@ -104,7 +104,8 @@
 // }
 // test()
 
-const fs = require('fs')
+// const fs = require('fs')
+import fs from 'fs'
 
 
 class UserManager{
@@ -199,12 +200,14 @@ const user4 = {
 }
 
 
-async function test(){
-    const manager1 = new UserManager('Users.json')
-    await manager1.createUser(user4)
-    await manager1.deleteUser(4)
-    const users = await manager1.getUsers()
-    const user =await manager1.getUserById(2)
-    console.log(users);
-}
-test()
+// async function test(){
+//     const manager1 = new UserManager('Users.json')
+//     await manager1.createUser(user4)
+//     await manager1.deleteUser(4)
+//     const users = await manager1.getUsers()
+//     const user =await manager1.getUserById(2)
+//     console.log(users);
+// }
+// test()
+
+export const usersManager= new usersManager()
