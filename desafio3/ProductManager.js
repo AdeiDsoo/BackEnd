@@ -34,4 +34,4 @@ class ProductsManager {
     }
 }
 
-export const productsManager = new ProductsManager('Products.json');
+export const productsManager = new ProductsManager('desafio3/Products.json');
