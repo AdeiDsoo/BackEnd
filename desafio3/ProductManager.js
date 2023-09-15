@@ -1,10 +1,10 @@
 import fs from "fs";
 
-class UsersManager {
+class ProductsManager {
     constructor(path) {
         this.path = path;
     }
-    async getUsers(queryObj) {
+    async getProducts(queryObj) {
         const { limit } = queryObj;
 
         try {
@@ -22,9 +22,9 @@ class UsersManager {
         }
     }
 
-    async getUserById(idUser) {
+    async getProductById(idUser) {
         try {
-            const users = await this.getUsers('');
+            const users = await this.getProducts('');
             const user = users.find((u) => u.id === idUser);
                 return user;
         
@@ -32,8 +32,6 @@ class UsersManager {
             return error;
         }
     }
-
 }
 
-
-export const usersManager = new UsersManager('UsersAPI.json');
+export const productsManager = new ProductsManager('Products.json');

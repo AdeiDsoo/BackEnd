@@ -1,0 +1,29 @@
+[
+  {
+    "id": 3,
+    "title": "product3",
+    "description": "description3",
+    "price": "price3",
+    "thumbnail": "www.algo.com",
+    "code": "XLDJF23",
+    "stock": 5
+  },
+  {
+    "id": 4,
+    "title": "product4",
+    "description": "description4",
+    "price": "price4",
+    "thumbnail": "www.algo.com",
+    "code": "XLD354",
+    "stock": 2
+  },
+  {
+    "id": 5,
+    "title": "product5",
+    "description": "description5",
+    "price": "price5",
+    "thumbnail": "www.algo.com",
+    "code": "LJKHF98",
+    "stock": 90
+  }
+]

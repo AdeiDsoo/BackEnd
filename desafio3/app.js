@@ -1,5 +1,5 @@
 import express from "express";
-import { usersManager } from "./ProductManager.js";
+import { productsManager } from "./ProductManager.js";
 
 const app = express();
 
@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get('/products', async (req, res) => {
     try {
-        const users = await usersManager.getUsers(req.query)
+        const users = await productsManager.getProducts(req.query)
         if (!users.length) {
             res.status(200).json({ message: 'No Products Found' })
         }
@@ -23,7 +23,7 @@ app.get('/products/:idProduct', async (req, res) => {
     const { idProduct } = req.params
     const id = Number(idProduct)
     try {
-        const product = await usersManager.getUserById(id)
+        const product = await productsManager.getProductById(id)
         if (!product) {
             res.status(400).json({ message: 'Product not found with the id sent' })
         } else {
