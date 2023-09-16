@@ -24,7 +24,7 @@ class UsersManager {
 
     async getUserById(idUser) {
         try {
-            const users = await this.getUsers('');
+            const users = await this.getUsers({});
             const user = users.find((u) => u.id === idUser);
                 return user;
         
