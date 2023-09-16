@@ -1,45 +1,103 @@
-// tema de la clase 2 sept -Persistencia de memoria
-// ya no guardar la informacion en mememoria sino en archivos
 
+// setTimeout(() => {
+    
+// }, 0);
 
+// setInterval(() => {
+    
+// }, interval);
 
-//ejercicio de hoy
+// FS
 
-const fs = require('fs');
-//escribir/crear archivo
+const fs = require('fs')
+//import fs from 'fs'
 
-// fs.writeFileSync('clase3/archvio.txt', 'primer archivo creado')
-//lo ideal es trabajar con rutas absolutas
-// fs.writeFileSync('clase3/archvio.txt', 'paso dos archivo creado')
-//enconding type es el segundo parametro
-// const infoArchivo= fs.readFileSync('clase3/archvio.txt', 'utf-8')
-// console.log(infoArchivo)
+// escribir un archivo
+//fs.writeFileSync('archivo.txt','primer archivo')
 
-// fs.unlinkSync('clase3/archvio.txt')
+// leer un archivo
+//const infoArchivo = fs.readFileSync('archivo.txt','utf-8')
+//console.log(infoArchivo);
 
-// const existeArchivo= fs.existsSync('clase3/archvio.txt')
-// console.log(existeArchivo)
+// eliminar un archivo
+//fs.unlinkSync('archivo.txt')
 
-// fs.appendFileSync('clase3/archvio.txt', 'agregando texto')
-// console.log(addText)
+// existe un archivo
+//const existeArchivo = fs.existsSync('archivo.txt')
+//console.log(existeArchivo);
 
-// fs.writeFile('clase3/archvio.txt', 'primer archivo', (error)=>{
+// anadir informacion
+//fs.appendFileSync('archivo.txt','segundo parrafo')
+
+// asincrona
+
+// CALLBACKS 
+
+//escribir un archivo
+// fs.writeFile('archivoAsync.txt','primer archivo',(error)=>{
 //     if(error){
-//         console.log(error)
+//         console.log(error);
+//     } else {
+//         console.log('Archivo creado con exito');
 //     }
-//     console.log('archivo crado con exito')
 // })
 
-// fs.readFile('clase3/archvio.txt', 'utf-8', (error, info)=>{
+//leer un archivo
+// fs.readFile('archivoAsync.txt','utf-8',(error,info)=>{
 //     if(error){
-//         console.log(error)
+//         console.log(error);
+//     } else {
+//         console.log(info);
 //     }
-//     console.log(info)
 // })
 
-// fs.promises.writeFile('clase3/archvio.txt', 'primer archivo')
-// .then(()=> console.log('archivo creado con exito'))
-// .catch(error => console.log(error))
+// eliminar un archivo
+// fs.unlink('archivo.txt',(error)=>{
+//     if(error){
+//         console.log(error);
+//     } else {
+//         console.log('Archivo eliminado con exito');
+//     }
+// })
 
-// con asyn y await se atrapan los errores con try y catch
+//Promesas
+// fs.promises.writeFile('/src/archivoAsync.txt','primer archivo')
+// .then(()=>console.log('Archivo creado con exito'))
+// .catch(error=>console.log(error))
+// fs.promises.readFile('archivoAsync.txt','utf-8')
+// .then((info)=>console.log(info))
+// .catch(error=>console.log(error))
+// fs.promises.unlink('archivoAsync.txt')
+// .then(()=>console.log('Archivo eliminado con exito'))
+// .catch(error=>console.log(error))
 
+const products = [
+    {
+        name: 'Iphone',
+        price: 500,
+        stcok: 25
+    },
+    {
+        name: 'Ipad',
+        price: 200,
+        stcok: 35
+    },
+    {
+        name: 'TV',
+        price: 1500,
+        stcok: 15
+    },
+    {
+        name: 'Galaxy',
+        price: 400,
+        stcok: 4
+    }
+]
+
+// fs.promises.writeFile('products.json',JSON.stringify(products))
+// .then(()=>console.log('Archivo creado con exito'))
+// .catch(error=>console.log(error))
+
+fs.promises.readFile('products.json','utf-8')
+.then(info=>console.log(JSON.parse(info)))
+.catch(error=>console.log(error))

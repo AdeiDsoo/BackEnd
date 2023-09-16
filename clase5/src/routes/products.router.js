@@ -1,7 +1,19 @@
-import {Router} from 'express'
+import { Router } from "express";
+import { upload } from "../middlewares/multer.middleware.js";
+const router = Router();
 
-const router = Router()
-// route.delete
+// router.get("/", async (req, res) => {});
 
+// router.get("/:idProduct", async (req, res) => {});
 
-export default router;
+router.post("/",upload.single('productimage') ,async (req, res) => {
+   console.log(req);
+   
+    res.send('Probando multer')
+});
+
+// router.delete("/:idProduct", async (req, res) => {});
+
+// router.put("/:idProduct", async (req, res) => {});
+
+export default router

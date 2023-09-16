@@ -1,1 +1,1 @@
-[{"id":1,"title":"title1","description":"description1","price":30,"thumbnail":"url1","code":563,"stock":3},{"id":2,"title":"title2","description":"description2","price":5,"thumbnail":"url2","code":123,"stock":100}]
+[{"name":"Iphone","price":500,"stcok":25},{"name":"Ipad","price":200,"stcok":35},{"name":"TV","price":1500,"stcok":15},{"name":"Galaxy","price":400,"stcok":4}]

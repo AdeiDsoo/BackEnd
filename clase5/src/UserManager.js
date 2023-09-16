@@ -26,7 +26,7 @@ class UsersManager {
 
   async createUser(obj) {
     try {
-      const users = await this.getUsers()
+      const users = await this.getUsers({})
       let id
       if (!users.length) {
         id = 1
@@ -44,7 +44,7 @@ class UsersManager {
 
   async getUserById(idUser) {
     try {
-      const users = await this.getUsers()
+      const users = await this.getUsers({})
       const user = users.find((u) => u.id === idUser)
       return user
     } catch (error) {
