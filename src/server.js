@@ -42,11 +42,11 @@ app.get('/:idProduct', async (req, res) => {
 
 app.post('/', async (req, res) => {
   const { title, description, code, price, status, stock, category, thumbails } = req.body
-  if (!title || !description || !code || !price || !status || !stock || !category ) {
+  if (!title || !description || !code || !price ||  !stock || !category ) {
     return res.status(400).json({ message: 'Some data is missing' })
   }
-  if( typeof status !== boolean || typeof price !== number || typeof code !== string || typeof description !== string || typeof title !== string  || typeof category !== string || typeof stock !== number){
-return res.status(400).json({ message: 'Introduce el tipo de dato correspondiente' })
+  if( typeof price !== "number" || typeof code !== "string" || typeof description !== "string" || typeof title !== "string"  || typeof category !== "string" || typeof stock !== "number"){
+return res.status(400).json({ message: 'Enter correct type data' })
   }
   try {
     const newProduct = await productsManager.createProduct(req.body)
@@ -56,33 +56,36 @@ return res.status(400).json({ message: 'Introduce el tipo de dato correspondient
   }
 })
 
-// app.delete('/users/:idUser', async (req, res) => {
-//   const { idUser } = req.params
-//   try {
-//     const response = await usersManager.deleteUser(+idUser)
-//     if (response === -1) {
-//       res.status(400).json({ message: 'User not found with the id sent' })
-//     } else {
-//       res.status(200).json({ message: 'User deleted' })
-//     }
-//   } catch (error) {
-//     res.status(500).json({ message: error })
-//   }
-// })
+app.delete('/:idProduct', async (req, res) => {
+  const { idProduct } = req.params
+  try {
+    const response = await productsManager.deleteProduct(+idProduct)
+    if (response === -1) {
+      res.status(400).json({ message: 'User not found with the id sent' })
+    } else {
+      res.status(200).json({ message: 'User deleted' })
+    }
+  } catch (error) {
+    res.status(500).json({ message: error })
+  }
+})
 
-// app.put('/users/:idUser', async (req, res) => {
-//   const { idUser } = req.params
-//   try {
-//     const response = await usersManager.updateUser(+idUser, req.body)
-//     if (response === -1) {
-//       res.status(400).json({ message: 'User not found with the id sent' })
-//     } else {
-//       res.status(200).json({ message: 'User updated' })
-//     }
-//   } catch (error) {
-//     res.status(500).json({ message: error })
-//   }
-// })
+app.put('/:idProduct', async (req, res) => {
+  const { idProduct } = req.params
+  try {
+    const response = await productsManager.updateProduct(+idProduct, req.body)
+    if(req.body.id){
+     return res.status(200).json({ message: 'id is a non-editable propety' })
+    }
+    if (response === -1) {
+      res.status(400).json({ message: 'Product not found with the id sent' })
+    } else {
+      res.status(200).json({ message: 'Product updated' })
+    }
+  } catch (error) {
+    res.status(500).json({ message: error })
+  }
+})
 
 app.listen(8080, () => {
   console.log('Escuchando al puerto 8080')

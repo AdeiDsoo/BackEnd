@@ -33,22 +33,29 @@ class ProductsManager {
     }
 
     async createProduct(obj) {
-        try {
-          const products = await this.getProducts({})
-          let id
-          if (!products.length) {
-            id = 1
-          } else {
-            id = products[products.length - 1].id + 1
-          }
-          const newProduct = { id, ...obj }
-          products.push(newProduct)
-          await fs.promises.writeFile(this.path, JSON.stringify(products))
-          return newProduct
-        } catch (error) {
-          return error
+      try {
+        const products = await this.getProducts({})
+        console.log(obj.status)
+        let id
+        let status
+        if(obj.status){
+          status=true
+        }else{
+          status=obj.status
         }
+        if (!products.length) {
+          id = 1
+        } else {
+          id = products[products.length - 1].id + 1
+        }
+        const newProduct = { id, ...obj, status }
+        products.push(newProduct)
+        await fs.promises.writeFile(this.path, JSON.stringify(products))
+        return newProduct
+      } catch (error) {
+        return error
       }
+    }
 
       async deleteProduct(idProduct) {
         try {
@@ -66,7 +73,11 @@ class ProductsManager {
       }
 
        async updateProduct(idProduct, obj) {
+  
+       
     try {
+      if(!obj.id){
+        console.log(obj.id)
       const products = await this.getProducts({})
       const index = products.findIndex((u) => u.id === idProduct)
       if (index === -1) {
@@ -76,9 +87,13 @@ class ProductsManager {
     products[index] = { ...product, ...obj }
       await fs.promises.writeFile(this.path, JSON.stringify(products))
       return 1
+    }
+    
     } catch (error) {
       return error
     }
+
+  
   }
 }
 
