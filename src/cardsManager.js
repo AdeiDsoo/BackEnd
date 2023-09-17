@@ -55,46 +55,48 @@ class CardsManager {
             if (!idCard || !idProduct) {
                 return "this card/product no found or ID is incorrect";
             }
-            const cards = await this.getProductsCards();
+            let cards = await this.getProductsCards();
             const card = cards.find((c) => c.id === idCard);
-            // const productsCard = card.productsCard;
-            if(!card){
-                return 'No found Card'
+            if (!card) {
+                return "No found Card";
             }
             const product = await productsManager.getProductById(idProduct);
-            if(!product){
-                return 'No found Product'
+            if (!product) {
+                return "No found Product";
             }
 
             if (!card.productsCard.find((item) => item.idProduct === idProduct)) {
                 card.productsCard.push({ idProduct: product.id, qty: 1 });
                 await fs.promises.writeFile(this.path, JSON.stringify(cards));
                 return card;
-            } 
-        //   console.log(cards)
-            // await fs.promises.writeFile(this.path, JSON.stringify(productsCard));
-            // return productsCard;
-            
-            // else {
-                // const currentProduct=!productsCard.find((item)=>(item.idProduct === idProduct))
-                // console.log(currentProduct.qty,'current------>')
-                // console.log('else')
+            } else {
+                const index = card.productsCard.findIndex(
+                    (u) => u.idProduct === idProduct
+                );
+                const onlyCard = cards[index];
+                // console.log(onlyCard);
+//                 const addProduct = card.productsCard.find(
+//                     (item) => item.idProduct === idProduct
+//                 );
+// console.log(addProduct)
+                const result = card.productsCard.map((item) => {
+                    return { ...item, qty: item.qty + 1 }
+                });
+               cards[index].productsCard = { ...onlyCard, ...result }
+               console.log(cards)
+                // console.log(result)
+                await fs.promises.writeFile(this.path, JSON.stringify(cards));
+                return cards;
 
-            //     const updateProductCard = productsCard.map((item) => {
-            //         console.log(idProduct, 'idProduct')
-            //         console.log(item.idProduct, 'item')
-            //         if (item.idProduct === idProduct) {
-            //             console.log(item.qty)
-            //             return { idProduct, qty: item.qty + 1 }
-            //         } else {
-            //             return item
-            //         }
+                //   console.log(cards)
+                // await fs.promises.writeFile(this.path, JSON.stringify(productsCard));
+                // return productsCard;
 
-            //     })
-            //     console.log(updateProductCard)
-            // }
-            // productsCard.push({ idProduct: product.id, qty: 1 });
-            // return card;
+
+
+
+            }
+
         } catch (error) {
             return error;
         }
