@@ -3,7 +3,8 @@
     "id": 1,
     "productsCard": [
       { "idProduct": 3, "qty": 10 },
-      { "idProduct": 5, "qty": 4 }
+      { "idProduct": 5, "qty": 4 },
+      { "idProduct": 7, "qty": 1 }
     ]
   },
   {
