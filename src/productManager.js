@@ -35,7 +35,6 @@ class ProductsManager {
     async createProduct(obj) {
       try {
         const products = await this.getProducts({})
-        console.log(obj.status)
         let id
         let status
         if(obj.status){
