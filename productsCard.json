@@ -1,17 +1,18 @@
 [
   {
     "id": 1,
-    "productsCard": {
-      "0": { "idProduct": 3, "qty": 8 },
-      "1": { "idProduct": 5, "qty": 2 },
-      "id": 1,
-      "productsCard": [
-        { "idProduct": 3, "qty": 7 },
-        { "idProduct": 5, "qty": 1 }
-      ]
-    }
+    "productsCard": [
+      { "idProduct": 3, "qty": 10 },
+      { "idProduct": 5, "qty": 4 }
+    ]
   },
-  { "id": 3, "productsCard": [{ "idProduct": 5, "qty": 1 }] },
+  {
+    "id": 3,
+    "productsCard": [
+      { "idProduct": 3, "qty": 10 },
+      { "idProduct": 5, "qty": 4 }
+    ]
+  },
   {
     "id": 2,
     "productsCard": [
