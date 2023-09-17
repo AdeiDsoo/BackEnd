@@ -74,23 +74,14 @@ class CardsManager {
                     (u) => u.idProduct === idProduct
                 );
                 const onlyCard = cards[index];
-                // console.log(onlyCard);
-                //                 const addProduct = card.productsCard.find(
-                //                     (item) => item.idProduct === idProduct
-                //                 );
-                // console.log(addProduct)
+
                 const result = card.productsCard.map((item) => {
                     return { ...item, qty: item.qty + 1 };
                 });
                 cards[index].productsCard = [...result];
                 console.log(cards[index].productsCard);
-                // console.log(result)
                 await fs.promises.writeFile(this.path, JSON.stringify(cards));
                 return cards;
-
-                //   console.log(cards)
-                // await fs.promises.writeFile(this.path, JSON.stringify(productsCard));
-                // return productsCard;
             }
         } catch (error) {
             return error;
@@ -98,13 +89,16 @@ class CardsManager {
     }
 }
 
-async function testing() {
-    const card = new CardsManager("productsCard.json");
-    // const result = await cart.getProductsCards();
-    // const result = await card.createCard();
-    // const result = await card.getProductsCardsById(2);
-    const result = await card.addProductsInThisCard(1, 1);
-    console.log(result);
-}
+// async function testing() {
+//     const card = new CardsManager("productsCard.json");
+//     // const result = await cart.getProductsCards();
+//     // const result = await card.createCard();
+//     // const result = await card.getProductsCardsById(2);
+//     const result = await card.addProductsInThisCard(1, 1);
+//     console.log(result);
+// }
 
-testing();
+// testing();
+
+
+export const cardsManager = new CardsManager("productsCard.json");
