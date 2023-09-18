@@ -37,7 +37,7 @@ router.get("/:idCart", async (req, res) => {
 });
 router.post("/:idCart", async (req, res) => {
     const { idCart } = req.params;
-    console.log(idCart);
+    // console.log(idCart);
     try {
         const id = Number(idCart);
         const newCart = await cartsManager.createCart(id);
@@ -49,5 +49,17 @@ router.post("/:idCart", async (req, res) => {
         res.status(500).json({ message: error });
     }
 });
-
+router.post("/:idCart/product/:idProduct", async (req, res) => {
+    const { idCart, idProduct } = req.params;
+    try {
+        const addProduct = await cartsManager.addProductsInThisCart(
+            +idCart,
+            +idProduct
+        );
+        console.log(addProduct)
+        res.status(200).json({ message: "Add Product in this cart", addProduct });
+    } catch (error) {
+        res.status(500).json({ message: error });
+    }
+});
 export default router;
