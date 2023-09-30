@@ -12,8 +12,7 @@ const inputCategory = document.getElementById("category");
 const table = document.getElementById("table");
 const tableBody = document.getElementById("tableBody");
 const allButtons = document.querySelectorAll(".delete");
-const sectionMessage = document.querySelector(".messages")
-
+const sectionMessage = document.querySelector(".messages");
 
 const strToBool = (str) => {
     switch (str.toLowerCase()) {
@@ -42,7 +41,17 @@ form.onsubmit = (e) => {
 };
 
 socketClient.on("productCreated", (product) => {
-    const { id, title, description, price, thumbail, code, stock, status, category } = product;
+    const {
+        id,
+        title,
+        description,
+        price,
+        thumbail,
+        code,
+        stock,
+        status,
+        category,
+    } = product;
     const row = `
     <tr>
     <td>${id}</td>
@@ -58,36 +67,24 @@ socketClient.on("productCreated", (product) => {
       
         </tr>`;
     table.innerHTML += row;
-    sectionMessage.innerHTML = ''
+    sectionMessage.innerHTML = "";
 });
-const deleteProduct = () => {
-
-}
+const deleteProduct = () => { };
 
 allButtons.forEach(function (button) {
     button.addEventListener("click", (e) => {
         e.preventDefault();
-        const id = e.target.id
+        const id = e.target.id;
         socketClient.emit("deleteProduct", +id);
-
     });
 });
 
-
-function deleteRow(rowId)  
-{   
+const deleteRow = (rowId) => {
     const row = document.getElementById(`${rowId}row`);
     row.parentNode.removeChild(row);
-}
+};
 socketClient.on("productDeleted", (product) => {
-
-    console.log(product.id, 'id products delete');
-
-
     const confirmMessage = `<p>El producto con el ${product.id}, ha sido eliminado</p>`;
     sectionMessage.innerHTML += confirmMessage;
-   deleteRow(product.id)
-   
+    deleteRow(product.id);
 });
-
-
