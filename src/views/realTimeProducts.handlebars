@@ -1,0 +1,61 @@
+<h3>Create a Product</h3>
+<form id="form">
+    Title:
+    <input type="text" name="title" id="title" required />
+    Description:
+    <input type="text" name="description" id="description" required />
+    Price:
+    <input type="number" name="price" id="price" required />
+    Image:
+    <input type="text" name="thumbnail" id="thumbnail" required  />
+    Code:
+    <input type="text" name="code" id="code" required />
+    Stock:
+    <input type="number" name="stock" id="stock" required />
+    Status:
+    <select id="status" name="status">
+        <option value="true">true</option>
+        <option value="false">false</option>
+    </select>
+    Category:
+    <input type="text" name="category" id="category" required />
+    <input type="submit" value="SEND" />
+</form>
+
+<section class="renderProducts">
+    <table id="table">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Thumbnail</th>
+            <th>Code</th>
+            <th>Stock</th>
+            <th>Status</th>
+              <th>Category</th>
+               <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+        {{#each products}}
+        <tr id={{id}}row>
+            <td>{{id}}</td>
+            <td>{{title}}</td>
+            <td>{{description}}</td>
+            <td>{{price}}</td>
+             <td>{{thumbnail}}</td>
+            <td> {{code}} </td>
+            <td> {{stock}} </td>
+            <td> {{status}} </td>
+            <td> {{category}} </td>
+                  <td><button id={{id}} class="delete">Eliminate</button>  </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+</section>
+<section class="messages"></section>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>

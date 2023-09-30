@@ -1,92 +1,89 @@
-import fs from "fs";
+import { existsSync, promises } from "fs";
+import { __dirname } from "./utils.js";
+const path = __dirname + "/Products.json";
 
 class ProductsManager {
-  constructor(path) {
-    this.path = path;
-  }
-  async getProducts(queryObj) {
+  async getProducts(queryObj = {}) {
     const { limit } = queryObj;
 
     try {
-      if (fs.existsSync(this.path)) {
-        const info = await fs.promises.readFile(this.path, "utf-8");
-        const infoParsed = JSON.parse(info);
-        if (!limit) return infoParsed;
-        return [...infoParsed].slice(0, +limit);
+      if (existsSync(path)) {
+        const productsFile = await promises.readFile(path, "utf-8");
+        // console.log("productsFile", productsFile);
+        const productsData = JSON.parse(productsFile);
+        return limit ? productsData.slice(0, +limit) : productsData;
       } else {
+        console.log("no existe el archivo");
         return [];
       }
     } catch (error) {
+      console.log("error", error);
       return error;
     }
   }
 
-  async getProductById(idUser) {
-    try {
-      const users = await this.getProducts({});
-      const user = users.find((u) => u.id === idUser);
-      return user;
-    } catch (error) {
-      return error;
-    }
-  }
-
-  async createProduct(obj) {
+  async createProduct(product) {
     try {
       const products = await this.getProducts({});
       let id;
-      let status;
-      if (obj.status) {
-        status = true;
-      } else {
-        status = obj.status;
-      }
       if (!products.length) {
         id = 1;
       } else {
         id = products[products.length - 1].id + 1;
       }
-      const newProduct = { id, ...obj, status };
+      const newProduct = { id, ...product, status: true };
       products.push(newProduct);
-      await fs.promises.writeFile(this.path, JSON.stringify(products));
+      await promises.writeFile(path, JSON.stringify(products));
       return newProduct;
     } catch (error) {
       return error;
     }
   }
 
-  async deleteProduct(idProduct) {
+  async getProductById(id) {
+    try {
+      const products = await this.getProducts();
+      // console.log("products", products);
+      const product = products.find((u) => u.id === id);
+      // console.log("product", product);
+      return product;
+    } catch (error) {
+      console.log("error catch");
+      throw new Error(error.message);
+    }
+  }
+
+  async deleteProduct(id) {
+
     try {
       const products = await this.getProducts({});
-      const product = products.find((p) => p.id === idProduct);
-      if (!product) {
-        return -1;
+      const product = products.find((u) => u.id === id);
+      if (product) {
+        const newArrayProducts = products.filter((u) => u.id !== id);
+        await promises.writeFile(path, JSON.stringify(newArrayProducts));
       }
-      const newArrayProducts = products.filter((p) => p.id !== idProduct);
-      await fs.promises.writeFile(this.path, JSON.stringify(newArrayProducts));
-      return 1;
+      return product;
     } catch (error) {
+      console.log('error')
       return error;
     }
   }
 
-  async updateProduct(idProduct, obj) {
+  async updateProduct(id, obj) {
     try {
-      if (!obj.id) {
-        const products = await this.getProducts({});
-        const index = products.findIndex((u) => u.id === idProduct);
-        if (index === -1) {
-          return -1;
-        }
-        const product = products[index];
-        products[index] = { ...product, ...obj };
-        await fs.promises.writeFile(this.path, JSON.stringify(products));
-        return 1;
+      const products = await this.getProducts({});
+      const index = products.findIndex((u) => u.id === id);
+      if (index === -1) {
+        return null;
       }
+      const updateProduct = { ...products[index], ...obj };
+      products.splice(index, 1, updateProduct);
+      await promises.writeFile(path, JSON.stringify(products));
+      return updateProduct;
     } catch (error) {
       return error;
     }
   }
 }
 
-export const productsManager = new ProductsManager("Products.json");
+export const productsManager = new ProductsManager();

@@ -22,16 +22,11 @@ html, body{
     text-align: center;
     text-transform: uppercase;
 }
-.allProducts div{
-    border: 5px solid rgb(31, 31, 67);
-    padding:  1vw 2vw;
-}
 
-.allProducts div:nth-child(even){
-    background-color: rgb(157, 207, 190);
-}
-.allProducts div:nth-child(odd){
-    background-color: rgb(119, 143, 165);
-    
-}
 
+.renderProducts{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5vw;
+}
